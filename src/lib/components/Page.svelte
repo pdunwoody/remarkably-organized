@@ -12,6 +12,7 @@
 	import AgendaWeek from './AgendaWeek.svelte';
 	import AgendaDay from './AgendaDay.svelte';
 	import TaskProgress from './TaskProgress.svelte';
+	import FranklinClassic from './FranklinClassic.svelte';
 
 	let {
 		display = 'dotted' as Collection['type'],
@@ -106,6 +107,10 @@
 			{timeframe}
 			startWeekOnSunday={settings.date.startWeekOnSunday}
 			groupBy="month" />
+	{:else if display === 'franklin-classic-left'}
+		<FranklinClassic {timeframe} {settings} mode="left" />
+	{:else if display === 'franklin-classic-right'}
+		<FranklinClassic {timeframe} {settings} mode="right" />
 	{:else if display.startsWith('lined')}
 		<Grid {display} columns={cols} lines={numLines} {aspectRatio} />
 	{:else if display.startsWith('numbered')}
@@ -126,7 +131,7 @@
 		overflow: hidden;
 		position: relative;
 
-		&:not(.lined) {
+		&:not(.lined):not(.daily) {
 			padding-top: 0.5rem;
 		}
 		&.dotted {

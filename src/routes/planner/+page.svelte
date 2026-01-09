@@ -48,6 +48,8 @@
 		{ name: 'Notes - Daily', value: 'notes-day' },
 		{ name: 'Habit Checkboxes - Grouped by Week', value: 'habit-year-by-week' },
 		{ name: 'Habit Checkboxes - Grouped by Month', value: 'habit-year-by-month' },
+		{ name: 'Franklin Classic - Left', value: 'franklin-classic-left' },
+		{ name: 'Franklin Classic - Right', value: 'franklin-classic-right' },
 	];
 
 	const font = $derived(fonts.find((f) => f.name === settings.design.font) ?? fonts[0]);
@@ -194,9 +196,13 @@
 			element.id = 'page-resolution-style';
 			document.head.appendChild(element);
 		}
-		element.innerHTML = `@page {${
-			enableHighResolution ? 'size: 1404px 1872px;' : 'size: 702px 936px;'
-		}margin: 0;}`;
+		const isLandscape = (settings.design.aspectRatio || 1) > 1;
+		const width = enableHighResolution ? 1404 : 702;
+		const height = enableHighResolution ? 1872 : 936;
+
+		element.innerHTML = `@page {size: ${
+			isLandscape ? `${height}px ${width}px` : `${width}px ${height}px`
+		}; margin: 0;}`;
 	});
 </script>
 
@@ -521,6 +527,42 @@
 							{/each}
 						</select>
 					</fieldset>
+					{#if settings.dayPage.template === 'franklin-classic-left'}
+						<fieldset>
+							<label for="classicStartHour">Schedule Start Time</label>
+							<select
+								id="classicStartHour"
+								bind:value={settings.dayPage.classicStartHour}>
+								{#each Array.from({ length: 24 }, (_, i) => i) as h}
+									<option value={h}>
+										{h === 0
+											? '12 AM'
+											: h < 12
+												? h + ' AM'
+												: h === 12
+													? '12 PM'
+													: h - 12 + ' PM'}
+									</option>
+								{/each}
+							</select>
+						</fieldset>
+						<fieldset>
+							<label for="classicEndHour">Schedule End Time</label>
+							<select id="classicEndHour" bind:value={settings.dayPage.classicEndHour}>
+								{#each Array.from({ length: 24 }, (_, i) => i) as h}
+									<option value={h}>
+										{h === 0
+											? '12 AM'
+											: h < 12
+												? h + ' AM'
+												: h === 12
+													? '12 PM'
+													: h - 12 + ' PM'}
+									</option>
+								{/each}
+							</select>
+						</fieldset>
+					{/if}
 					<fieldset>
 						<label for="dayNotePagesAmount">Additional Note Pages</label>
 						<input
@@ -807,8 +849,10 @@
 <Toast />
 
 <main
-	style:--doc-width="{702}px"
-	style:--doc-height="{702 * (1 / (settings.design.aspectRatio || 1))}px"
+	style:--doc-width="{(settings.design.aspectRatio || 1) > 1 ? 936 : 702}px"
+	style:--doc-height="{(settings.design.aspectRatio || 1) > 1
+		? 936 * (1 / (settings.design.aspectRatio || 1))
+		: 702 * (1 / (settings.design.aspectRatio || 1))}px"
 	style:--sidenav-width="{settings.sideNav.disable ? 0 : settings.sideNav.width}px"
 	style:--topnav-height="{settings.topNav.disable ? 0 : settings.topNav.height}px"
 	style:--font="'{font.name}'"

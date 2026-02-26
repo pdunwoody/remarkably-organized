@@ -1,0 +1,40 @@
+{
+	"name": "Remarkably Organized",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "20",
+			"pnpmVersion": "latest"
+		}
+	},
+
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"svelte.enable-ts-plugin": true,
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				"editor.formatOnSave": true
+			},
+			"extensions": [
+				"svelte.svelte-vscode",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"christian-kohler.npm-intellisense"
+			]
+		}
+	},
+
+	"forwardPorts": [5173],
+
+	"portsAttributes": {
+		"5173": {
+			"label": "Vite Dev Server",
+			"onAutoForward": "notify"
+		}
+	},
+
+	"postCreateCommand": "corepack enable pnpm && pnpm install && pnpm exec svelte-kit sync",
+
+	"remoteUser": "node"
+}

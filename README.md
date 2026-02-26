@@ -1,4 +1,3 @@
-
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/brianschwabauer)
 
 # Remarkably Organized Planner
@@ -26,6 +25,7 @@ Knowledge of web technologies is required to run this app.
 If you don't know what pnpm is, you probably won't understand the code.
 
 Install pnpm, and run the following:
+
 ```bash
 pnpm i
 pnpm run dev
@@ -40,6 +40,26 @@ To build the code run,
 ```bash
 pnpm run build
 ```
+
+### Develope in a Dev Containers (Recommended)
+
+If you've never used a Dev Container before, it is simply a way to run a pre-configured, isolated development environment directly inside Visual Studio Code. You don't need to install Node, `pnpm`, or configure formatting tools on your local machine—the container handles it all automatically!
+
+**Prerequisites:**
+
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) and make sure it is running.
+2. Install [Visual Studio Code](https://code.visualstudio.com/).
+3. Install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VS Code.
+
+**How to start:**
+
+1. Open this repository's folder in VS Code.
+2. A prompt will appear in the bottom right corner asking to **"Reopen in Container"**. Click it. _(If you don't see it, open the Command Palette with `Ctrl/Cmd + Shift + P`, type `Dev Containers: Reopen in Container`, and hit Enter)._
+3. Wait a moment for VS Code to build the container and install the project dependencies.
+4. Once it's ready, open a new terminal in VS Code and run:
+   ```bash
+   pnpm run dev
+   ```
 
 ## Future Ideas
 

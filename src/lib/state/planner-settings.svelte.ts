@@ -209,12 +209,12 @@ export class PlannerSettings {
 		useWeekNumbersInSideNav = $state(false);
 		sideNavDisplay = $state(
 			'weeks-this-month' as
-				| 'days-this-week'
-				| 'days-this-month'
-				| 'days-this-year'
-				| 'weeks-this-year'
-				| 'weeks-this-month'
-				| 'months',
+			| 'days-this-week'
+			| 'days-this-month'
+			| 'days-this-year'
+			| 'weeks-this-year'
+			| 'weeks-this-month'
+			| 'months',
 		);
 	})();
 
@@ -224,14 +224,16 @@ export class PlannerSettings {
 		template = $state('notes-day' as PageTemplate);
 		notePagesTemplate = $state('dotted' as PageTemplate);
 		notePagesAmount = $state(0);
+		classicStartHour = $state(5);
+		classicEndHour = $state(20);
 		sideNavDisplay = $state(
 			'days-this-week' as
-				| 'days-this-week'
-				| 'days-this-month'
-				| 'days-this-year'
-				| 'weeks-this-year'
-				| 'weeks-this-month'
-				| 'months',
+			| 'days-this-week'
+			| 'days-this-month'
+			| 'days-this-year'
+			| 'weeks-this-year'
+			| 'weeks-this-month'
+			| 'months',
 		);
 	})();
 
@@ -437,10 +439,10 @@ export class PlannerSettings {
 		!this.initialSettings
 			? {}
 			: objectDiff({
-					prev: this.initialSettings,
-					next: this.serialize(),
-					enableDeepDiff: true,
-				}).diff,
+				prev: this.initialSettings,
+				next: this.serialize(),
+				enableDeepDiff: true,
+			}).diff,
 	);
 
 	constructor(
@@ -553,6 +555,8 @@ export class PlannerSettings {
 				disable: this.dayPage.disable,
 				notePagesTemplate: this.dayPage.notePagesTemplate,
 				notePagesAmount: this.dayPage.notePagesAmount,
+				classicStartHour: this.dayPage.classicStartHour,
+				classicEndHour: this.dayPage.classicEndHour,
 				sideNavDisplay: this.dayPage.sideNavDisplay,
 				template: this.dayPage.template,
 			},
@@ -684,6 +688,10 @@ export class PlannerSettings {
 			this.dayPage.notePagesAmount = state.dayPage.notePagesAmount;
 		if (state?.dayPage?.sideNavDisplay !== undefined)
 			this.dayPage.sideNavDisplay = state.dayPage.sideNavDisplay;
+		if (state?.dayPage?.classicStartHour !== undefined)
+			this.dayPage.classicStartHour = state.dayPage.classicStartHour;
+		if (state?.dayPage?.classicEndHour !== undefined)
+			this.dayPage.classicEndHour = state.dayPage.classicEndHour;
 		if (state?.dayPage?.template !== undefined)
 			this.dayPage.template = state.dayPage.template;
 
